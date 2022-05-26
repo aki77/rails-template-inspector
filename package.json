@@ -16,10 +16,11 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
-    "lit": "^2.0.2"
+    "lit": "^2.0.2",
+    "mabiki": "^1.0.1"
   },
   "devDependencies": {
-    "vite": "^2.9.9",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9"
   }
 }

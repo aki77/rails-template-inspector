@@ -2,6 +2,7 @@ import { html, css, LitElement } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import {styleMap} from 'lit/directives/style-map.js';
 import {createRef, Ref, ref} from 'lit/directives/ref.js';
+import { throttle } from 'mabiki'
 import { findTarget, isKeyActive } from './utils';
 
 @customElement('template-inspector')
@@ -45,7 +46,14 @@ export class MyElement extends LitElement {
   @state()
   private _targetElement?: HTMLElement
 
+  private throttledHandleMove: (event: MouseEvent) => void
+
   overlayRef: Ref<HTMLInputElement> = createRef();
+
+  constructor() {
+    super();
+    this.throttledHandleMove = throttle(this._handleMove, 100)
+  }
 
   render() {
     return html`
@@ -81,12 +89,12 @@ export class MyElement extends LitElement {
   }
 
   private _addEventListener() {
-    document.body.addEventListener('mousemove', this._handleMove);
+    document.body.addEventListener('mousemove', this.throttledHandleMove);
     document.body.addEventListener('click', this._handleClick);
   }
 
   private _removeEventListener() {
-    document.body.removeEventListener('mousemove', this._handleMove);
+    document.body.removeEventListener('mousemove', this.throttledHandleMove);
     document.body.removeEventListener('click', this._handleClick);
   }
 

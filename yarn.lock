@@ -186,6 +186,11 @@ lit@^2.0.2:
     lit-element "^3.2.0"
     lit-html "^2.2.0"
 
+mabiki@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/mabiki/-/mabiki-1.0.1.tgz#c1fa8237055d1ffe0499f193a8b3f3f9d3629331"
+  integrity sha512-uq91Ordht5o0iiIyiV/ELGzRgUh9tXRxo/JeALnxPaC7aB87A3lsgmvDn/SgWKDB8I6DA7C/LR86EHE7FQzjrw==
+
 nanoid@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
