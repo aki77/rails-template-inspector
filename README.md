@@ -19,7 +19,7 @@ In app/views/layouts/application.html.haml:
 <%= yield %>
 
 <% if Rails.env.development? %>
-  <script type="module" src="https://unpkg.com/@aki77/rails-template-inspector@latest"></script>
+  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector"></script>
   <template-inspector url-prefix="vscode://file#{Rails.root}/"></template-inspector>
 <% end %>
 </body>
