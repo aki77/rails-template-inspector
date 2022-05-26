@@ -9,7 +9,7 @@ In app/views/layouts/application.html.haml:
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-  <title>Music - SampleView</title>
+  <title>Rails APP</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -19,9 +19,15 @@ In app/views/layouts/application.html.haml:
 <%= yield %>
 
 <% if Rails.env.development? %>
-  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector"></script>
-  <template-inspector url-prefix="vscode://file" root="<%= Rails.root %>"></template-inspector>
+  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.0.3"></script>
+  <template-inspector url-prefix="vscode://file" root="<%= Rails.root %>" combo-key="command-shift-v"></template-inspector>
 <% end %>
 </body>
 </html>
 ```
+
+## Attributes
+
+- `url-prefix`: Custom URL Scheme for editor. (default: `vscode://file`)
+- `root`: Rails root dir.
+- `combo-key`: Toggle inspector. (default: `meta-shift-v`)

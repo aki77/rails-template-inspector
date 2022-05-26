@@ -30,7 +30,7 @@ export const findTarget = (element: HTMLElement): FindTargetResult | undefined =
   return element.parentElement ? findTarget(element.parentElement) : undefined
 }
 
-export const isKeyActive = (key: string, event: KeyboardEvent): boolean => {
+const isKeyActive = (key: string, event: KeyboardEvent): boolean => {
   switch (key) {
     case "shift":
     case "control":
@@ -40,4 +40,9 @@ export const isKeyActive = (key: string, event: KeyboardEvent): boolean => {
     default:
       return key === event.key.toLowerCase()
   }
+}
+
+export const isCombo = (comboKey: string, event: KeyboardEvent): boolean => {
+  const keys = comboKey.replace('command', 'meta').toLowerCase().split('-')
+  return keys.every(key => isKeyActive(key, event))
 }

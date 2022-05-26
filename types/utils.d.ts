@@ -3,5 +3,5 @@ declare type FindTargetResult = {
     path: string;
 };
 export declare const findTarget: (element: HTMLElement) => FindTargetResult | undefined;
-export declare const isKeyActive: (key: string, event: KeyboardEvent) => boolean;
+export declare const isCombo: (comboKey: string, event: KeyboardEvent) => boolean;
 export {};

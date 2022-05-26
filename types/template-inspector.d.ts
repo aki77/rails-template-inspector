@@ -1,14 +1,17 @@
 import { LitElement } from 'lit';
 import { Ref } from 'lit/directives/ref.js';
-export declare class MyElement extends LitElement {
+export declare class TemplateInspector extends LitElement {
     static styles: import("lit").CSSResult;
     urlPrefix: string;
-    toggleComboKey: string;
+    root: string;
+    comboKey: string;
     private _path?;
     private _overlayVisible;
     private _enabled;
     private _targetElement?;
+    private throttledHandleMove;
     overlayRef: Ref<HTMLInputElement>;
+    constructor();
     render(): import("lit-html").TemplateResult<1>;
     connectedCallback(): void;
     disconnectedCallback(): void;
@@ -24,6 +27,6 @@ export declare class MyElement extends LitElement {
 }
 declare global {
     interface HTMLElementTagNameMap {
-        'template-inspector': MyElement;
+        'template-inspector': TemplateInspector;
     }
 }

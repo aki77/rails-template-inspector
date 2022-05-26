@@ -3,10 +3,10 @@ import { customElement, property, state } from 'lit/decorators.js'
 import {styleMap} from 'lit/directives/style-map.js';
 import {createRef, Ref, ref} from 'lit/directives/ref.js';
 import { throttle } from 'mabiki'
-import { findTarget, isKeyActive } from './utils';
+import { findTarget, isCombo } from './utils';
 
 @customElement('template-inspector')
-export class MyElement extends LitElement {
+export class TemplateInspector extends LitElement {
   static styles = css`
     .overlay {
       z-index: 100000;
@@ -31,8 +31,8 @@ export class MyElement extends LitElement {
   @property()
   root: string = '/'
 
-  @property({attribute: 'toggle-combo-key'})
-  toggleComboKey: string = 'meta-shift-v'
+  @property({attribute: 'combo-key'})
+  comboKey: string = 'meta-shift-v'
 
   @state()
   private _path?: string;
@@ -64,7 +64,7 @@ export class MyElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     document.body.addEventListener('keydown', this._handleKeyDown);
-    console.log(`Ready to Template Inspector. Press ${this.toggleComboKey} to toggle.`)
+    console.log(`Ready to Template Inspector. Press ${this.comboKey} to toggle.`)
   }
 
   disconnectedCallback() {
@@ -132,9 +132,7 @@ export class MyElement extends LitElement {
   }
 
   private _handleKeyDown = (event: KeyboardEvent) => {
-    const comboKeys = this.toggleComboKey.toLowerCase().split('-')
-    const isCombo = comboKeys.every(key => isKeyActive(key, event))
-    if (isCombo) {
+    if (isCombo(this.comboKey, event)) {
       this.toggle()
     }
   }
@@ -142,6 +140,6 @@ export class MyElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'template-inspector': MyElement
+    'template-inspector': TemplateInspector
   }
 }
