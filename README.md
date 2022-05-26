@@ -2,6 +2,12 @@
 
 ## Usage
 
+In config/environments/development.rb:
+
+```ruby
+config.action_view.annotate_rendered_view_with_filenames = true
+```
+
 In app/views/layouts/application.html.haml:
 
 ```erb
