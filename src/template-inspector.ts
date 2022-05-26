@@ -25,7 +25,10 @@ export class MyElement extends LitElement {
   `
 
   @property({attribute: 'url-prefix'})
-  urlPrefix: string = 'vscode://file/'
+  urlPrefix: string = 'vscode://file'
+
+  @property()
+  root: string = '/'
 
   @property({attribute: 'toggle-combo-key'})
   toggleComboKey: string = 'meta-shift-v'
@@ -116,7 +119,7 @@ export class MyElement extends LitElement {
     const element = event.target as HTMLElement
     const result = findTarget(element)
     if (result) {
-      window.open(`${this.urlPrefix}${result.path}`)
+      window.open(`${this.urlPrefix}${this.root}/${result.path}`)
     }
   }
 

@@ -20,7 +20,7 @@ In app/views/layouts/application.html.haml:
 
 <% if Rails.env.development? %>
   <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector"></script>
-  <template-inspector url-prefix="vscode://file#{Rails.root}/"></template-inspector>
+  <template-inspector url-prefix="vscode://file" root="<%= Rails.root %>"></template-inspector>
 <% end %>
 </body>
 </html>
