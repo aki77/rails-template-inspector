@@ -64,7 +64,7 @@ export class TemplateInspector extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     document.body.addEventListener('keydown', this._handleKeyDown);
-    console.log(`Ready to Template Inspector. Press ${this.comboKey} to toggle.`)
+    console.info(`Ready to Template Inspector. Press ${this.comboKey} to toggle.`)
   }
 
   disconnectedCallback() {
@@ -76,12 +76,14 @@ export class TemplateInspector extends LitElement {
   enable() {
     this._enabled = true
     this._addEventListener()
+    console.info('Template Inspector enabled!')
   }
 
   disable() {
     this._enabled = false
     this._overlayVisible = false
     this._removeEventListener()
+    console.info('Template Inspector disabled!')
   }
 
   toggle() {
@@ -133,7 +135,7 @@ export class TemplateInspector extends LitElement {
 
   private _handleKeyDown = (event: KeyboardEvent) => {
     if (['Escape', 'Esc'].includes(event.key)) {
-      this.disable()
+      if (this._enabled) this.disable()
       return
     }
 
