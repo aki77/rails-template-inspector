@@ -11,9 +11,7 @@ export class TemplateInspector extends LitElement {
     .overlay {
       z-index: 100000;
       position: fixed;
-      border: 2px dashed #666;
-      background-color: rgba(0,0,0,0.8);
-      font-size: 14px;
+      background-color: rgba(147,197,253, 0.5);
       pointer-events: none;
     }
     .path {
