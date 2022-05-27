@@ -13,12 +13,26 @@ export class TemplateInspector extends LitElement {
       position: fixed;
       border: 2px dashed #666;
       background-color: rgba(0,0,0,0.8);
-      color: #fff;
-      border-radius: 5px;
       font-size: 14px;
       pointer-events: none;
-      display: grid;
-      place-items: center;
+    }
+    .path {
+      background-color: #fff;
+      border-radius: 2px;
+      color: #86198f;
+      font-family: Inter, -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+    }
+    .shadow-md {
+      --tw-shadow: 0 4px 6px -1px rgb(0 0 0/0.1),0 2px 4px -2px rgb(0 0 0/0.1);
+      --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color);
+      -webkit-box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+      box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
     }
     [hidden] {
       display: none !important;
@@ -57,7 +71,9 @@ export class TemplateInspector extends LitElement {
 
   render() {
     return html`
-      <span class="overlay" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>${this._path}</span>
+      <div class="overlay" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
+        <span class="path shadow-md">${this._path}</span>
+      </div>
     `
   }
 
