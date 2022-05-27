@@ -132,6 +132,11 @@ export class TemplateInspector extends LitElement {
   }
 
   private _handleKeyDown = (event: KeyboardEvent) => {
+    if (['Escape', 'Esc'].includes(event.key)) {
+      this.disable()
+      return
+    }
+
     if (isCombo(this.comboKey, event)) {
       this.toggle()
     }
