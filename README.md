@@ -1,4 +1,4 @@
-# @aki77/rails-template-inspector
+# rails-template-inspector
 
 ## Usage
 
@@ -25,7 +25,7 @@ In app/views/layouts/application.html.haml:
 <%= yield %>
 
 <% if Rails.env.development? %>
-  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.0.3"></script>
+  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.0.5"></script>
   <template-inspector url-prefix="vscode://file" root="<%= Rails.root %>" combo-key="command-shift-v"></template-inspector>
 <% end %>
 </body>
