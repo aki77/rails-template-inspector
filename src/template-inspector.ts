@@ -143,6 +143,7 @@ export class TemplateInspector extends LitElement {
     const element = event.target as HTMLElement
     const result = findTarget(element)
     if (result) {
+      event.preventDefault()
       window.open(`${this.urlPrefix}${this.root}/${result.path}`)
     }
   }
