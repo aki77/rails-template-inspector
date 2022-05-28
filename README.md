@@ -1,4 +1,4 @@
-# rails-template-inspector
+# &lt;rails-inspector&gt;
 
 This custom element allows users to jump to local IDE code directly from browser element by just a simple click. It supports Rails templates.
 
