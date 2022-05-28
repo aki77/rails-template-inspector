@@ -1,5 +1,9 @@
 # rails-template-inspector
 
+This custom element allows users to jump to local IDE code directly from browser element by just a simple click. It supports Rails templates.
+
+![Demo](https://i.gyazo.com/b857cb78e7490bdefebb89abfbac8a90.gif)
+
 ## Usage
 
 In config/environments/development.rb:
@@ -25,7 +29,7 @@ In app/views/layouts/application.html.haml:
 <%= yield %>
 
 <% if Rails.env.development? %>
-  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.0.5"></script>
+  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.1.0"></script>
   <template-inspector url-prefix="vscode://file" root="<%= Rails.root %>" combo-key="command-shift-v"></template-inspector>
 <% end %>
 </body>
@@ -35,5 +39,12 @@ In app/views/layouts/application.html.haml:
 ## Attributes
 
 - `url-prefix`: Custom URL Scheme for editor. (default: `vscode://file`)
-- `root`: Rails root dir.
-- `combo-key`: Toggle inspector. (default: `meta-shift-v`)
+  - Examples
+    - **Visual Studio Code**: `vscode://file`
+    - **RubyMine**: `x-mine://open?file=`
+    - **MacVIM**: `mvim://open?url=file://`
+    - **Emacs**: `emacs://open?url=file://`
+- `combo-key`: Key to toggle inspector. (default: `meta-shift-v`)
+  - any number of modifiers `control`, `shift`, `alt`, `meta`, `command` followed by zero or one regular key, separated by `-`.
+  * examples: `control-shift`, `control-o`, `control-alt-s`, `meta-x`, `control-meta`
+- `root`: Rails root dir. (default: `/`)
