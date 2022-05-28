@@ -5,8 +5,8 @@ import {createRef, Ref, ref} from 'lit/directives/ref.js';
 import { throttle } from 'mabiki'
 import { findTarget, isCombo } from './utils';
 
-@customElement('template-inspector')
-export class TemplateInspector extends LitElement {
+@customElement('rails-inspector')
+export class RailsInspector extends LitElement {
   static styles = css`
     .overlay {
       z-index: 100000;
@@ -162,6 +162,6 @@ export class TemplateInspector extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'template-inspector': TemplateInspector
+    'rails-inspector': RailsInspector
   }
 }

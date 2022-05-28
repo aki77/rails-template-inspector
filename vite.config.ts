@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   build: {
     lib: {
-      entry: 'src/template-inspector.ts',
+      entry: 'src/rails-inspector.ts',
       formats: ['es']
     },
     rollupOptions: {

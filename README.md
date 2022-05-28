@@ -30,7 +30,7 @@ In app/views/layouts/application.html.haml:
 
 <% if Rails.env.development? %>
   <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.1.0"></script>
-  <template-inspector url-prefix="vscode://file" root="<%= Rails.root %>" combo-key="command-shift-v"></template-inspector>
+  <rails-inspector url-prefix="vscode://file" root="<%= Rails.root %>" combo-key="command-shift-v"></rails-inspector>
 <% end %>
 </body>
 </html>
