@@ -20,6 +20,7 @@ export declare class RailsInspector extends LitElement {
     toggle(): void;
     private _addEventListener;
     private _removeEventListener;
+    private _positionClass;
     private _overlayStyle;
     private _handleMove;
     private _handleClick;
