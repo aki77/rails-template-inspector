@@ -18,11 +18,7 @@ In app/views/layouts/application.html.haml:
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-  <title>Rails APP</title>
-  <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+<!-- ... -->
 </head>
 <body>
 
