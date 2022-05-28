@@ -15,7 +15,7 @@ export class RailsInspector extends LitElement {
       pointer-events: none;
     }
     .path {
-      background-color: #fff;
+      background-color: #fdfdfd;
       border-radius: 2px;
       color: #86198f;
       font-family: Inter, -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -23,8 +23,13 @@ export class RailsInspector extends LitElement {
       font-weight: 700;
       padding: 6px;
       position: absolute;
-      top: 4px;
-      left: 4px;
+    }
+    .path.top {
+      top: 0;
+      transform: translate(0%, calc(-100% - 4px));
+    }
+    .path.bottom {
+      top: calc(100% + 4px);
     }
     .shadow-md {
       --tw-shadow: 0 4px 6px -1px rgb(0 0 0/0.1),0 2px 4px -2px rgb(0 0 0/0.1);
@@ -70,7 +75,7 @@ export class RailsInspector extends LitElement {
   render() {
     return html`
       <div class="overlay" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
-        <span class="path shadow-md">${this._path}</span>
+        <span class="path shadow-md ${this._positionClass()}">${this._path}</span>
       </div>
     `
   }
@@ -114,11 +119,17 @@ export class RailsInspector extends LitElement {
     document.body.removeEventListener('click', this._handleClick);
   }
 
+  private _positionClass() {
+    if (!this._targetElement) return
+
+    const rect = this._targetElement.getBoundingClientRect()
+    return window.scrollY + window.innerHeight + 100 > rect.bottom ? 'bottom' : 'top'
+  }
+
   private _overlayStyle() {
     if (!this._targetElement) return {}
 
     const rect = this._targetElement.getBoundingClientRect()
-
     return {
       left: `${rect.left}px`,
       top: `${rect.top}px`,
