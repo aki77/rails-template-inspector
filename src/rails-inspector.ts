@@ -3,44 +3,19 @@ import { customElement, property, state } from 'lit/decorators.js'
 import {styleMap} from 'lit/directives/style-map.js';
 import {createRef, Ref, ref} from 'lit/directives/ref.js';
 import { throttle } from 'mabiki'
+import { create, cssomSheet } from 'twind'
 import { findTarget, isCombo } from './utils';
+
+const sheet = cssomSheet({ target: new CSSStyleSheet() })
+const { tw } = create({ sheet })
 
 @customElement('rails-inspector')
 export class RailsInspector extends LitElement {
-  static styles = css`
-    .overlay {
-      z-index: 100000;
-      position: fixed;
-      background-color: rgba(147,197,253, 0.5);
-      pointer-events: none;
-    }
-    .path {
-      background-color: #fdfdfd;
-      border-radius: 2px;
-      color: #86198f;
-      font-family: Inter, -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 6px;
-      position: absolute;
-    }
-    .path.top {
-      top: 0;
-      transform: translate(0%, calc(-100% - 4px));
-    }
-    .path.bottom {
-      top: calc(100% + 4px);
-    }
-    .shadow-md {
-      --tw-shadow: 0 4px 6px -1px rgb(0 0 0/0.1),0 2px 4px -2px rgb(0 0 0/0.1);
-      --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color);
-      -webkit-box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
-      box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
-    }
+  static styles = [sheet.target, css`
     [hidden] {
       display: none !important;
     }
-  `
+  `]
 
   @property({attribute: 'url-prefix'})
   urlPrefix: string = 'vscode://file'
@@ -74,8 +49,20 @@ export class RailsInspector extends LitElement {
 
   render() {
     return html`
-      <div class="overlay" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
-        <span class="path shadow-md ${this._positionClass()}">${this._path}</span>
+      <div class="overlay ${tw`fixed z-[100000] bg-blue-300 bg-opacity-50 pointer-events-none`}" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
+        <span class="path ${tw`
+          shadow-md
+          bg-gray-50
+          text-purple-800
+          rounded-l
+          text-xs
+          absolute
+          p-2
+          font-bold
+          font-sans
+          ${this._isBottom() ? 'top-[calc(100%+4px)]' : 'top-0 translate-y-[calc(-100%-4px)]'}
+        `}">
+          ${this._path}</span>
       </div>
     `
   }
@@ -119,11 +106,11 @@ export class RailsInspector extends LitElement {
     document.body.removeEventListener('click', this._handleClick);
   }
 
-  private _positionClass() {
-    if (!this._targetElement) return
+  private _isBottom() {
+    if (!this._targetElement) return true
 
     const rect = this._targetElement.getBoundingClientRect()
-    return window.scrollY + window.innerHeight + 100 > rect.bottom ? 'bottom' : 'top'
+    return window.scrollY + window.innerHeight + 100 > rect.bottom
   }
 
   private _overlayStyle() {
