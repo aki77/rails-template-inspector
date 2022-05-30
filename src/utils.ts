@@ -1,15 +1,20 @@
-const findPreviousAnnotateComment = (element: ChildNode): string | undefined => {
+const findPreviousAnnotateComment = (element: ChildNode, ignorePaths: string[] = []): string | undefined => {
   const prev = element.previousSibling
   if (!prev) return
 
   if (prev.nodeName !== '#comment') {
-    return findPreviousAnnotateComment(prev)
+    return findPreviousAnnotateComment(prev, ignorePaths)
   }
 
-  const comment = (prev as any).data as string
-  if (!comment.trim().startsWith('BEGIN')) return
+  const comment = ((prev as any).data as string).trim()
+  const match = comment.match(/^(BEGIN|END) (\S+)$/)
+  if (!match) return
 
-  return comment.replace('BEGIN', '').trim()
+  const [, prefix, path] = match
+  if (prefix === 'END') return findPreviousAnnotateComment(prev, [...ignorePaths, path])
+  if (ignorePaths.includes(path)) return findPreviousAnnotateComment(prev, ignorePaths)
+
+  return path
 }
 
 type FindTargetResult = {
