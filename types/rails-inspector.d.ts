@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 import { Ref } from 'lit/directives/ref.js';
 export declare class RailsInspector extends LitElement {
-    static styles: import("lit").CSSResult;
+    static styles: (CSSStyleSheet | import("lit").CSSResult)[];
     urlPrefix: string;
     root: string;
     comboKey: string;
@@ -20,7 +20,7 @@ export declare class RailsInspector extends LitElement {
     toggle(): void;
     private _addEventListener;
     private _removeEventListener;
-    private _positionClass;
+    private _isBottom;
     private _overlayStyle;
     private _handleMove;
     private _handleClick;
