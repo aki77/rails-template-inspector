@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 import { Ref } from 'lit/directives/ref.js';
 export declare class RailsInspector extends LitElement {
-    static styles: (CSSStyleSheet | import("lit").CSSResult)[];
+    static styles: import("lit").CSSResult;
     urlPrefix: string;
     root: string;
     comboKey: string;

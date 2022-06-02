@@ -3,19 +3,16 @@ import { customElement, property, state } from 'lit/decorators.js'
 import {styleMap} from 'lit/directives/style-map.js';
 import {createRef, Ref, ref} from 'lit/directives/ref.js';
 import { throttle } from 'mabiki'
-import { create, cssomSheet } from 'twind'
 import { findTarget, isCombo } from './utils';
-
-const sheet = cssomSheet({ target: new CSSStyleSheet() })
-const { tw } = create({ sheet })
 
 @customElement('rails-inspector')
 export class RailsInspector extends LitElement {
-  static styles = [sheet.target, css`
+  static styles = css`
+    @unocss-placeholder
     [hidden] {
       display: none !important;
     }
-  `]
+  `
 
   @property({attribute: 'url-prefix'})
   urlPrefix: string = 'vscode://file'
@@ -49,11 +46,11 @@ export class RailsInspector extends LitElement {
 
   render() {
     return html`
-      <div class="overlay ${tw`fixed z-[100000] bg-blue-300 bg-opacity-50 pointer-events-none`}" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
-        <span class="path ${tw`
+      <div class="overlay fixed z-[100000] bg-blue-300 bg-opacity-50 pointer-events-none" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
+        <span class="
           shadow-md
           bg-gray-50
-          text-purple-800
+          text-fuchsia-800
           rounded-l
           text-xs
           absolute
@@ -61,7 +58,7 @@ export class RailsInspector extends LitElement {
           font-bold
           font-sans
           ${this._isBottom() ? 'top-[calc(100%+4px)]' : 'top-0 translate-y-[calc(-100%-4px)]'}
-        `}">
+        ">
           ${this._path}</span>
       </div>
     `

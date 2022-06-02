@@ -1,4 +1,6 @@
 import { defineConfig } from 'vite'
+import Unocss from 'unocss/vite'
+import presetWind from '@unocss/preset-wind'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,6 +11,14 @@ export default defineConfig({
     },
     rollupOptions: {
       external: /^lit/
-    }
-  }
+    },
+  },
+  plugins: [
+    Unocss({
+      mode: 'shadow-dom',
+      presets: [
+        presetWind(),
+      ],
+    }),
+  ],
 })
