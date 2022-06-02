@@ -9,9 +9,6 @@ export default defineConfig({
       entry: 'src/rails-inspector.ts',
       formats: ['es']
     },
-    rollupOptions: {
-      external: /^lit/
-    },
   },
   plugins: [
     Unocss({
