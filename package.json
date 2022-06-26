@@ -21,9 +21,9 @@
     "mabiki": "^1.0.1"
   },
   "devDependencies": {
-    "@unocss/preset-wind": "^0.37.2",
+    "@unocss/preset-wind": "^0.41.1",
     "typescript": "^4.5.4",
-    "unocss": "^0.37.2",
+    "unocss": "^0.41.1",
     "vite": "^2.9.9"
   }
 }
