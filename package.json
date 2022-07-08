@@ -1,6 +1,6 @@
 {
   "name": "@aki77/rails-template-inspector",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "dist/rails-template-inspector.es.js",
   "exports": {
     ".": "./dist/rails-template-inspector.es.js"
@@ -17,6 +17,7 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
+    "@floating-ui/dom": "^0.5.4",
     "lit": "^2.0.2",
     "mabiki": "^1.0.1"
   },

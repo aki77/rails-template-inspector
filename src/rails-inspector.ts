@@ -1,9 +1,10 @@
 import { html, css, LitElement } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
-import {styleMap} from 'lit/directives/style-map.js';
-import {createRef, Ref, ref} from 'lit/directives/ref.js';
+import {styleMap} from 'lit/directives/style-map.js'
+import {createRef, Ref, ref} from 'lit/directives/ref.js'
 import { throttle } from 'mabiki'
-import { findTarget, isCombo } from './utils';
+import {computePosition, flip, offset} from '@floating-ui/dom'
+import { findTarget, isCombo } from './utils'
 
 @customElement('rails-inspector')
 export class RailsInspector extends LitElement {
@@ -35,9 +36,13 @@ export class RailsInspector extends LitElement {
   @state()
   private _targetElement?: HTMLElement
 
+  @state()
+  private _tooltipPosition: { left: string, top: string} = { left: '0', top: '0' }
+
   private throttledHandleMove: (event: MouseEvent) => void
 
-  overlayRef: Ref<HTMLInputElement> = createRef();
+  overlayRef: Ref<HTMLDivElement> = createRef();
+  tooltipRef: Ref<HTMLSpanElement> = createRef();
 
   constructor() {
     super();
@@ -46,7 +51,7 @@ export class RailsInspector extends LitElement {
 
   render() {
     return html`
-      <div class="overlay fixed z-[100000] bg-blue-300 bg-opacity-50 pointer-events-none" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
+      <div class="overlay absolute z-[100000] bg-blue-300 bg-opacity-50 pointer-events-none" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
         <span class="
           shadow-md
           bg-gray-50
@@ -57,8 +62,7 @@ export class RailsInspector extends LitElement {
           p-2
           font-bold
           font-sans
-          ${this._isBottom() ? 'top-[calc(100%+4px)]' : 'top-0 translate-y-[calc(-100%-4px)]'}
-        ">
+        " style=${styleMap(this._tooltipPosition)} ${ref(this.tooltipRef)}>
           ${this._path}</span>
       </div>
     `
@@ -103,11 +107,17 @@ export class RailsInspector extends LitElement {
     document.body.removeEventListener('click', this._handleClick);
   }
 
-  private _isBottom() {
-    if (!this._targetElement) return true
+  private async updateTooltipPosition() {
+    if (!(this.overlayRef.value && this.tooltipRef.value)) return
 
-    const rect = this._targetElement.getBoundingClientRect()
-    return window.scrollY + window.innerHeight + 100 > rect.bottom
+    const {x, y} = await computePosition(this.overlayRef.value, this.tooltipRef.value, {
+      placement: 'top-start',
+      middleware: [flip(), offset(5)]
+    })
+    this._tooltipPosition = {
+      left: `${x}px`,
+      top: `${y}px`,
+    }
   }
 
   private _overlayStyle() {
@@ -116,7 +126,7 @@ export class RailsInspector extends LitElement {
     const rect = this._targetElement.getBoundingClientRect()
     return {
       left: `${rect.left}px`,
-      top: `${rect.top}px`,
+      top: `${rect.top + (window.pageYOffset - document.documentElement.clientTop)}px`,
       width: `${rect.width}px`,
       height: `${rect.height}px`,
     }
@@ -129,6 +139,7 @@ export class RailsInspector extends LitElement {
     if (result) {
       this._targetElement = result.element
       this._overlayVisible = true
+      this.updateTooltipPosition()
     } else {
       this._overlayVisible = false
     }

@@ -9,8 +9,10 @@ export declare class RailsInspector extends LitElement {
     private _overlayVisible;
     private _enabled;
     private _targetElement?;
+    private _tooltipPosition;
     private throttledHandleMove;
-    overlayRef: Ref<HTMLInputElement>;
+    overlayRef: Ref<HTMLDivElement>;
+    tooltipRef: Ref<HTMLSpanElement>;
     constructor();
     render(): import("lit-html").TemplateResult<1>;
     connectedCallback(): void;
@@ -20,7 +22,7 @@ export declare class RailsInspector extends LitElement {
     toggle(): void;
     private _addEventListener;
     private _removeEventListener;
-    private _isBottom;
+    private updateTooltipPosition;
     private _overlayStyle;
     private _handleMove;
     private _handleClick;
