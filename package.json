@@ -12,7 +12,7 @@
     "types"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "tsc && vite build",
     "prepublish": "yarn build"
   },
