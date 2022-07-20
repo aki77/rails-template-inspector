@@ -5,6 +5,7 @@ export declare class RailsInspector extends LitElement {
     urlPrefix: string;
     root: string;
     comboKey: string;
+    autoDisable: boolean;
     private _path?;
     private _overlayVisible;
     private _enabled;

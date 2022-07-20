@@ -25,7 +25,7 @@ In app/views/layouts/application.html.haml:
 <%= yield %>
 
 <% if Rails.env.development? %>
-  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.3.0"></script>
+  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.4.0"></script>
   <rails-inspector url-prefix="vscode://file" root="<%= Rails.root %>" combo-key="command-shift-v"></rails-inspector>
 
   <!--
