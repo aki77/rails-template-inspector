@@ -12,7 +12,14 @@
 <body>
   <!-- BEGIN test/dummy1.erb -->
   <!-- BEGIN test/h1.erb -->
-  <h1 style="height: 200px;">test</h1>
+  <div style="height: 200px;">
+    <h1>Title</h1>
+    <!-- BEGIN test/dummy2.erb -->
+    <div>
+      dummy
+    </div>
+    <!-- END test/dummy2.erb -->
+  </div>
   <!-- END test/h1.erb -->
   <h2>dummy1</h2>
   <rails-inspector url-prefix="vscode://file" root="/Users/aki/src/github.com/aki77/rails-template-inspector"

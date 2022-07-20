@@ -17,13 +17,17 @@ const findPreviousAnnotateComment = (element: ChildNode, ignorePaths: string[] =
   return path
 }
 
-type FindTargetResult = {
+type FindTargetOptions = {
+  ignorePaths?: string[]
+}
+
+export type FindTargetResult = {
   element: HTMLElement
   path: string
 }
 
-export const findTarget = (element: HTMLElement): FindTargetResult | undefined => {
-  const path = findPreviousAnnotateComment(element)
+export const findTarget = (element: HTMLElement, options: FindTargetOptions = {}): FindTargetResult | undefined => {
+  const path = findPreviousAnnotateComment(element, options.ignorePaths)
 
   if (path) {
     return {
@@ -33,6 +37,23 @@ export const findTarget = (element: HTMLElement): FindTargetResult | undefined =
   }
 
   return element.parentElement ? findTarget(element.parentElement) : undefined
+}
+
+export const findParentTargets = (element: HTMLElement, path: string): readonly FindTargetResult[] => {
+  const parents: FindTargetResult[] = []
+  let i = 0
+  let el = element
+
+  do {
+    const result = findTarget(el, { ignorePaths: [...parents.map(({ path }) => path), path] })
+    if (!result) break
+
+    parents.push(result)
+    el = result.element
+    i++
+  } while (i < 3);
+
+  return parents.reverse()
 }
 
 const isKeyActive = (key: string, event: KeyboardEvent): boolean => {

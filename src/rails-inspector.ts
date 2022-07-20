@@ -1,10 +1,12 @@
+import './rails-inspector-button'
+import './rails-inspector-breadcrumb'
 import { html, css, LitElement } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import {styleMap} from 'lit/directives/style-map.js'
 import {createRef, Ref, ref} from 'lit/directives/ref.js'
 import { throttle } from 'mabiki'
 import {computePosition, flip, offset} from '@floating-ui/dom'
-import { findTarget, isCombo } from './utils'
+import { findParentTargets, findTarget, FindTargetResult, isCombo } from './utils'
 
 @customElement('rails-inspector')
 export class RailsInspector extends LitElement {
@@ -28,7 +30,10 @@ export class RailsInspector extends LitElement {
   autoDisable: boolean = false
 
   @state()
-  private _path?: string;
+  private _result?: FindTargetResult;
+
+  @state()
+  private _parentPaths: readonly string[] = []
 
   @state()
   private _overlayVisible: boolean = false
@@ -37,15 +42,12 @@ export class RailsInspector extends LitElement {
   private _enabled: boolean = false
 
   @state()
-  private _targetElement?: HTMLElement
-
-  @state()
   private _tooltipPosition: { left: string, top: string} = { left: '0', top: '0' }
 
   private throttledHandleMove: (event: MouseEvent) => void
 
   overlayRef: Ref<HTMLDivElement> = createRef();
-  tooltipRef: Ref<HTMLSpanElement> = createRef();
+  tooltipRef: Ref<HTMLDivElement> = createRef();
 
   constructor() {
     super();
@@ -56,27 +58,37 @@ export class RailsInspector extends LitElement {
     // NOTE: NOTE: The reason for `pointer-events-none` is that it needs to exclude itself from the `mousemove` event.
     return html`
       <div class="overlay absolute z-[100000] bg-blue-300 bg-opacity-50 pointer-events-none" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
-        <span class="
+        <div class="
           shadow-md
           bg-gray-50
           text-fuchsia-800
           rounded-l
           text-xs
           absolute
-          p-2
+          py-1
+          px-2
+          flex
+          items-center
+          gap-3
           font-bold
           font-sans
-        " style=${styleMap(this._tooltipPosition)} ${ref(this.tooltipRef)}>
-          ${this._path}</span>
+          pointer-events-auto
+        " style=${styleMap(this._tooltipPosition)} @mousemove=${this._stopPropagation} ${ref(this.tooltipRef)}>
+          <span>${this._result?.path}</span>
+          <rails-inspector-breadcrumb
+            .parentPaths=${this._parentPaths}
+            currentPath=${this._result?.path}
+            ?hidden=${this._parentPaths.length === 0}
+            @open=${this._handleOpen}>
+          </rails-inspector-breadcrumb>
+        </div>
       </div>
-      <div
+      <rails-inspector-button
         ?hidden=${!this._enabled}
         @click=${this.disable}
-        title="Rails Inspector enabled"
-        class="p-4 m-6 fixed z-[100000] bottom-0 right-0 shadow-lg bg-white rounded-full text-2xl cursor-pointer border border-transparent hover:bg-gray-50"
+        @mousemove=${this._handleMouseMoveButton}
       >
-        <div class="text-gray-700 text-3xl i-fluent-developer-board-search-24-regular"></div>
-      </div>
+      </rails-inspector-button>
     `
   }
 
@@ -124,7 +136,7 @@ export class RailsInspector extends LitElement {
 
     const {x, y} = await computePosition(this.overlayRef.value, this.tooltipRef.value, {
       placement: 'top-start',
-      middleware: [flip(), offset(5)]
+      middleware: [flip(), offset(-24)]
     })
     this._tooltipPosition = {
       left: `${x}px`,
@@ -133,9 +145,9 @@ export class RailsInspector extends LitElement {
   }
 
   private _overlayStyle() {
-    if (!this._targetElement) return {}
+    if (!this._result) return {}
 
-    const rect = this._targetElement.getBoundingClientRect()
+    const rect = this._result.element.getBoundingClientRect()
     return {
       left: `${rect.left}px`,
       top: `${rect.top + (window.pageYOffset - document.documentElement.clientTop)}px`,
@@ -146,21 +158,22 @@ export class RailsInspector extends LitElement {
 
   private _handleMove = (event: MouseEvent) => {
     const element = event.target
-
-    if (!(element instanceof HTMLElement) || this.contains(element)) {
-      this._overlayVisible = false
-      return
-    }
+    if (!(element instanceof HTMLElement)) return
 
     const result = findTarget(element)
-    this._path = result?.path
+    this._result = result
     if (result) {
-      this._targetElement = result.element
+      this._parentPaths = findParentTargets(result.element, result.path).map(({path}) => path)
       this._overlayVisible = true
       this.updateTooltipPosition()
     } else {
       this._overlayVisible = false
     }
+  }
+
+  private _handleMouseMoveButton = (event: MouseEvent) => {
+    this._overlayVisible = false
+    event.stopPropagation()
   }
 
   private _handleClick = (event: MouseEvent) => {
@@ -171,6 +184,15 @@ export class RailsInspector extends LitElement {
       window.open(`${this.urlPrefix}${this.root}/${result.path}`)
       if (this.autoDisable) this.disable()
     }
+  }
+
+  private _handleOpen = (event: CustomEvent) => {
+    window.open(`${this.urlPrefix}${this.root}/${event.detail.path}`)
+    if (this.autoDisable) this.disable()
+  }
+
+  private _stopPropagation = (event: Event) => {
+    event.stopPropagation()
   }
 
   private _handleKeyDown = (event: KeyboardEvent) => {
