@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import Unocss from 'unocss/vite'
 import presetWind from '@unocss/preset-wind'
+import presetIcons from '@unocss/preset-icons'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,6 +16,9 @@ export default defineConfig({
       mode: 'shadow-dom',
       presets: [
         presetWind(),
+        presetIcons({
+          cdn: 'https://esm.sh/'
+        }),
       ],
     }),
   ],
