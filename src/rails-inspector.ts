@@ -53,6 +53,7 @@ export class RailsInspector extends LitElement {
   }
 
   render() {
+    // NOTE: NOTE: The reason for `pointer-events-none` is that it needs to exclude itself from the `mousemove` event.
     return html`
       <div class="overlay absolute z-[100000] bg-blue-300 bg-opacity-50 pointer-events-none" ?hidden=${!this._overlayVisible} style=${styleMap(this._overlayStyle())} ${ref(this.overlayRef)}>
         <span class="
