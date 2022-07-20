@@ -27,6 +27,11 @@ In app/views/layouts/application.html.haml:
 <% if Rails.env.development? %>
   <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.3.0"></script>
   <rails-inspector url-prefix="vscode://file" root="<%= Rails.root %>" combo-key="command-shift-v"></rails-inspector>
+
+  <!--
+  If you want to disable the inspector automatically as soon as you open the editor
+  <rails-inspector url-prefix="vscode://file" root="<%= Rails.root %>" combo-key="command-shift-v" auto-disable></rails-inspector>
+  -->
 <% end %>
 </body>
 </html>
@@ -44,3 +49,4 @@ In app/views/layouts/application.html.haml:
   - any number of modifiers `control`, `shift`, `alt`, `meta`, `command` followed by zero or one regular key, separated by `-`.
   * examples: `control-shift`, `control-o`, `control-alt-s`, `meta-x`, `control-meta`
 - `root`: Rails root dir. (default: `/`)
+- `auto-disable`: Disable inspector as soon as you open the editor. (default: `false`)

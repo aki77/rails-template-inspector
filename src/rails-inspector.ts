@@ -24,6 +24,9 @@ export class RailsInspector extends LitElement {
   @property({attribute: 'combo-key'})
   comboKey: string = 'meta-shift-v'
 
+  @property({type: Boolean, attribute: 'auto-disable'})
+  autoDisable: boolean = false
+
   @state()
   private _path?: string;
 
@@ -165,6 +168,7 @@ export class RailsInspector extends LitElement {
     if (result) {
       event.preventDefault()
       window.open(`${this.urlPrefix}${this.root}/${result.path}`)
+      if (this.autoDisable) this.disable()
     }
   }
 
