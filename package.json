@@ -1,11 +1,11 @@
 {
   "name": "@aki77/rails-template-inspector",
-  "version": "0.4.0",
-  "main": "dist/rails-template-inspector.es.js",
+  "version": "0.4.1",
+  "main": "dist/rails-template-inspector.mjs",
   "exports": {
-    ".": "./dist/rails-template-inspector.es.js"
+    ".": "./dist/rails-template-inspector.mjs"
   },
-  "types": "types/rails-template-inspector.d.ts",
+  "types": "types/rails-inspector.d.ts",
   "license": "MIT",
   "files": [
     "dist",
