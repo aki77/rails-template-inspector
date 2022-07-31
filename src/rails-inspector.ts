@@ -188,13 +188,16 @@ export class RailsInspector extends LitElement {
     const result = findTarget(element)
     if (result) {
       event.preventDefault()
-      window.open(`${this.urlPrefix}${this.root}/${result.path}`)
-      if (!this.notAutoDisable) this.disable()
+      this._open(result.path)
     }
   }
 
   private _handleOpen = (event: CustomEvent) => {
-    window.open(`${this.urlPrefix}${this.root}/${event.detail.path}`)
+    this._open(event.detail.path)
+  }
+
+  private _open = (path: string) => {
+    window.open(`${this.urlPrefix}${this.root}/${path}`)
     if (!this.notAutoDisable) this.disable()
   }
 
