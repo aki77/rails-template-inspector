@@ -29,6 +29,9 @@ export class RailsInspector extends LitElement {
   @property({type: Boolean, attribute: 'auto-disable'})
   autoDisable: boolean = false
 
+  @property({type: Boolean, attribute: 'not-auto-disable'})
+  notAutoDisable: boolean = false
+
   @state()
   private _result?: FindTargetResult;
 
@@ -96,6 +99,10 @@ export class RailsInspector extends LitElement {
     super.connectedCallback();
     document.body.addEventListener('keydown', this._handleKeyDown);
     console.info(`Ready to Template Inspector. Press ${this.comboKey} to toggle.`)
+
+    if (this.autoDisable) {
+      console.warn('Deprecated `auto-disable` is enabled. Please use `not-auto-disable` instead.')
+    }
   }
 
   disconnectedCallback() {
@@ -182,13 +189,13 @@ export class RailsInspector extends LitElement {
     if (result) {
       event.preventDefault()
       window.open(`${this.urlPrefix}${this.root}/${result.path}`)
-      if (this.autoDisable) this.disable()
+      if (!this.notAutoDisable) this.disable()
     }
   }
 
   private _handleOpen = (event: CustomEvent) => {
     window.open(`${this.urlPrefix}${this.root}/${event.detail.path}`)
-    if (this.autoDisable) this.disable()
+    if (!this.notAutoDisable) this.disable()
   }
 
   private _stopPropagation = (event: Event) => {
