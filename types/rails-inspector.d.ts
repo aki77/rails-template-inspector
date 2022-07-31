@@ -1,3 +1,5 @@
+import './rails-inspector-button';
+import './rails-inspector-breadcrumb';
 import { LitElement } from 'lit';
 import { Ref } from 'lit/directives/ref.js';
 export declare class RailsInspector extends LitElement {
@@ -5,14 +7,16 @@ export declare class RailsInspector extends LitElement {
     urlPrefix: string;
     root: string;
     comboKey: string;
-    private _path?;
+    autoDisable: boolean;
+    notAutoDisable: boolean;
+    private _result?;
+    private _parentPaths;
     private _overlayVisible;
     private _enabled;
-    private _targetElement?;
     private _tooltipPosition;
     private throttledHandleMove;
     overlayRef: Ref<HTMLDivElement>;
-    tooltipRef: Ref<HTMLSpanElement>;
+    tooltipRef: Ref<HTMLDivElement>;
     constructor();
     render(): import("lit-html").TemplateResult<1>;
     connectedCallback(): void;
@@ -25,7 +29,11 @@ export declare class RailsInspector extends LitElement {
     private updateTooltipPosition;
     private _overlayStyle;
     private _handleMove;
+    private _handleMouseMoveButton;
     private _handleClick;
+    private _handleOpen;
+    private _open;
+    private _stopPropagation;
     private _handleKeyDown;
 }
 declare global {
