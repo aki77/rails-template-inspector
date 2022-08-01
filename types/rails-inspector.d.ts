@@ -8,7 +8,7 @@ export declare class RailsInspector extends LitElement {
     root: string;
     comboKey: string;
     autoDisable: boolean;
-    notAutoDisable: boolean;
+    noAutoDisable: boolean;
     private _result?;
     private _parentPaths;
     private _overlayVisible;
