@@ -1,6 +1,11 @@
 import { html, css, LitElement } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
+const basename = (path: string): string => {
+  const parts = path.split('/')
+  return parts[parts.length - 1]
+}
+
 @customElement('rails-inspector-breadcrumb')
 export class RailsInspectorBreadcrumb extends LitElement {
   static styles = css`
@@ -20,10 +25,10 @@ export class RailsInspectorBreadcrumb extends LitElement {
     return html`
     <div class="flex items-center gap-1 text-gray-500 font-normal">
       ${this.parentPaths.map((path) => html`
-        <span class="cursor-pointer" @click=${(event: Event) => this._dispatchOpen(event, path)}>${path}</span>
+        <span class="cursor-pointer" title=${path} @click=${(event: Event) => this._dispatchOpen(event, path)}>${basename(path)}</span>
         <div class="i-bi-chevron-right"></div>
       `)}
-      <span class="cursor-pointer" @click=${(event: Event) => this._dispatchOpen(event, this.currentPath)}>${this.currentPath}</span>
+      <span class="cursor-pointer" title=${this.currentPath} @click=${(event: Event) => this._dispatchOpen(event, this.currentPath)}>${basename(this.currentPath)}</span>
     </div>
     `
   }

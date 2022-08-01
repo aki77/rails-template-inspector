@@ -1,3 +1,13 @@
+## 0.5.1
+
+- Improved breadcrumb style
+
+## 0.5.0
+
+- Add `no-auto-disable` attribute
+- Add breadcrumb
+- Deprecated `auto-disable` attribute
+
 ## 0.4.1
 
 - Fix exports
