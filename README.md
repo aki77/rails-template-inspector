@@ -12,7 +12,7 @@ In config/environments/development.rb:
 config.action_view.annotate_rendered_view_with_filenames = true
 ```
 
-In app/views/layouts/application.html.haml:
+In app/views/layouts/application.html.erb:
 
 ```erb
 <!DOCTYPE html>
