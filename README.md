@@ -50,3 +50,13 @@ In app/views/layouts/application.html.erb:
   * examples: `control-shift`, `control-o`, `control-alt-s`, `meta-x`, `control-meta`
 - `root`: Rails root dir. (default: `/`)
 - `no-auto-disable`: Keep the inspector when you open the editor. (default: `false`)
+
+## Notes
+
+Disable confirmation dialog when opening external apps from Chrome on mac.
+
+```
+defaults write com.google.Chrome URLAllowlist -array "vscode://*"
+```
+
+https://owky.github.io/blog/2022/01/09/mac-chrome-url-allow-list.html
