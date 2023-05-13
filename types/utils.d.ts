@@ -1,7 +1,7 @@
-declare type FindTargetOptions = {
+type FindTargetOptions = {
     ignorePaths?: string[];
 };
-export declare type FindTargetResult = {
+export type FindTargetResult = {
     element: HTMLElement;
     path: string;
 };
