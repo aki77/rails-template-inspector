@@ -1,3 +1,9 @@
+# Changelog
+
+For future updates, please check the [GitHub Releases page](https://github.com/aki77/rails-template-inspector/releases).
+
+---
+
 ## 0.5.3
 
 - Update dependencies
