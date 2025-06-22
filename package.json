@@ -14,18 +14,19 @@
   "scripts": {
     "dev": "vite --open",
     "build": "tsc && vite build",
-    "prepublish": "yarn build"
+    "prepublish": "pnpm build"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.0.1",
-    "lit": "^2.0.2",
+    "lit": "^3.3.0",
     "mabiki": "^1.0.1"
   },
   "devDependencies": {
-    "@unocss/preset-icons": "^0.51.12",
-    "@unocss/preset-wind": "^0.51.12",
+    "@unocss/preset-icons": "^66.2.3",
+    "@unocss/preset-wind": "^66.2.3",
     "typescript": "^5.0.4",
-    "unocss": "^0.51.12",
-    "vite": "^4.3.5"
-  }
+    "unocss": "^66.2.3",
+    "vite": "^6.3.5"
+  },
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }

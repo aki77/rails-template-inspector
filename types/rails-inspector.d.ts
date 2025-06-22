@@ -18,7 +18,7 @@ export declare class RailsInspector extends LitElement {
     overlayRef: Ref<HTMLDivElement>;
     tooltipRef: Ref<HTMLDivElement>;
     constructor();
-    render(): import("lit-html").TemplateResult<1>;
+    render(): import("lit").TemplateResult<1>;
     connectedCallback(): void;
     disconnectedCallback(): void;
     enable(): void;
