@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import './rails-inspector-dropdown.js'
 
 const basename = (path: string): string => {
   const parts = path.split('/')
@@ -29,16 +30,31 @@ export class RailsInspectorBreadcrumb extends LitElement {
         <div class="i-bi-chevron-right"></div>
       `)}
       <span class="cursor-pointer" title=${this.currentPath} @click=${(event: Event) => this._dispatchOpen(event, this.currentPath)}>${basename(this.currentPath)}</span>
+
+      <rails-inspector-dropdown
+        class="ml-2"
+        .parentPaths=${this.parentPaths}
+        .currentPath=${this.currentPath}
+        @open=${this._handleDropdownOpen}
+      ></rails-inspector-dropdown>
     </div>
     `
-  }
-
-  private _dispatchOpen(event: Event, path: string) {
+  }  private _dispatchOpen(event: Event, path: string) {
     event.preventDefault()
     event.stopPropagation()
 
     const options = {
       detail: {path},
+      bubbles: true,
+      composed: true
+    };
+    this.dispatchEvent(new CustomEvent('open', options));
+  }
+
+  private _handleDropdownOpen(event: CustomEvent) {
+    // ドロップダウンからのopenイベントをそのまま上位に転送
+    const options = {
+      detail: event.detail,
       bubbles: true,
       composed: true
     };
