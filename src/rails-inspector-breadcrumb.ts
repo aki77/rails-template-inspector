@@ -52,7 +52,7 @@ export class RailsInspectorBreadcrumb extends LitElement {
   }
 
   private _handleDropdownOpen(event: CustomEvent) {
-    // ドロップダウンからのopenイベントをそのまま上位に転送
+    // Toggle open events from the dropdown directly to the top
     const options = {
       detail: event.detail,
       bubbles: true,
