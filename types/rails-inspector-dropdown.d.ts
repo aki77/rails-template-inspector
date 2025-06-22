@@ -6,7 +6,6 @@ export declare class RailsInspectorDropdown extends LitElement {
     private dropdownOpen;
     render(): import("lit").TemplateResult<1>;
     private _toggleDropdown;
-    private _handleBlur;
     private _handleDropdownItemClick;
     private _dispatchOpen;
 }

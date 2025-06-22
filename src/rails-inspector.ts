@@ -1,5 +1,5 @@
 import './rails-inspector-button'
-import './rails-inspector-breadcrumb'
+import './rails-inspector-dropdown'
 import { html, css, LitElement } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import {styleMap} from 'lit/directives/style-map.js'
@@ -78,12 +78,13 @@ export class RailsInspector extends LitElement {
           pointer-events-auto
         " style=${styleMap(this._tooltipPosition)} @mousemove=${this._stopPropagation} ${ref(this.tooltipRef)}>
           <span>${this._result?.path}</span>
-          <rails-inspector-breadcrumb
+          <rails-inspector-dropdown
+            class="ml-2"
             .parentPaths=${this._parentPaths}
-            currentPath=${this._result?.path}
+            .currentPath=${this._result?.path}
+            @open=${this._handleOpen}
             ?hidden=${this._parentPaths.length === 0}
-            @open=${this._handleOpen}>
-          </rails-inspector-breadcrumb>
+          ></rails-inspector-dropdown>
         </div>
       </div>
       <rails-inspector-button

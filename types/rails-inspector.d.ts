@@ -1,5 +1,4 @@
 import './rails-inspector-button';
-import './rails-inspector-breadcrumb';
 import { LitElement } from 'lit';
 import { Ref } from 'lit/directives/ref.js';
 export declare class RailsInspector extends LitElement {
