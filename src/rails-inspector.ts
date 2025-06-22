@@ -73,18 +73,19 @@ export class RailsInspector extends LitElement {
           flex
           items-center
           gap-3
-          font-bold
           font-sans
           pointer-events-auto
         " style=${styleMap(this._tooltipPosition)} @mousemove=${this._stopPropagation} ${ref(this.tooltipRef)}>
-          <span>${this._result?.path}</span>
-          <rails-inspector-dropdown
-            class="ml-2"
-            .parentPaths=${this._parentPaths}
-            .currentPath=${this._result?.path}
-            @open=${this._handleOpen}
-            ?hidden=${this._parentPaths.length === 0}
-          ></rails-inspector-dropdown>
+          <span class="font-bold">${this._result?.path}</span>
+          ${this._result ? html`
+            <rails-inspector-dropdown
+              class="ml-2"
+              .parentPaths=${this._parentPaths}
+              .currentPath=${this._result?.path}
+              @open=${this._handleOpen}
+              ?hidden=${this._parentPaths.length === 0}
+            ></rails-inspector-dropdown>
+          ` : undefined}
         </div>
       </div>
       <rails-inspector-button
