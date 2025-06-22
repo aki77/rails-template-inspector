@@ -1,6 +1,6 @@
 {
   "name": "@aki77/rails-template-inspector",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "main": "dist/rails-template-inspector.mjs",
   "exports": {
     ".": "./dist/rails-template-inspector.mjs"
@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "vite --open",
     "build": "tsc && vite build",
-    "prepublish": "pnpm build"
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.0.1",

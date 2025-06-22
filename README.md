@@ -25,7 +25,7 @@ In app/views/layouts/application.html.erb:
 <%= yield %>
 
 <% if Rails.env.development? %>
-  <script type="module" src="https://cdn.skypack.dev/@aki77/rails-template-inspector@^0.6.0"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@aki77/rails-template-inspector@latest/dist/rails-template-inspector.mjs"></script>
   <rails-inspector url-prefix="vscode://file" root="<%= Rails.root %>" combo-key="command-shift-v"></rails-inspector>
 
   <!--

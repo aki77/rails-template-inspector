@@ -33,13 +33,13 @@ export class RailsInspectorDropdown extends LitElement {
     return html`
       <div class="relative inline-block">
         <button
+          type="button"
           class="bg-none border-none outline-none cursor-pointer text-gray-500 hover:text-gray-700 p-1"
           @click=${this._toggleDropdown}
-          @blur=${this._handleBlur}
         >
           <div class="i-bi-chevron-down"></div>
         </button>
-        <div class="absolute right-0 bg-white min-w-200px shadow-lg z-1 border border-gray-300 rounded max-h-300px overflow-y-auto" ?hidden=${!this.dropdownOpen}>
+        <div class="absolute left-0 bg-white min-w-200px shadow-lg z-1 border border-gray-300 rounded max-h-300px overflow-y-auto" ?hidden=${!this.dropdownOpen}>
           ${dropdownItems.map((path, index) => html`
             <div
               class="text-black px-3 py-2 no-underline block cursor-pointer border-b border-gray-200 last:border-b-0 hover:bg-gray-100 ${index === 0 ? 'font-bold bg-gray-50' : ''}"
@@ -54,20 +54,10 @@ export class RailsInspectorDropdown extends LitElement {
     `
   }
 
-  private _toggleDropdown() {
+  private _toggleDropdown(event: MouseEvent) {
+    event.preventDefault()
+    event.stopPropagation()
     this.dropdownOpen = !this.dropdownOpen
-  }
-
-  private _handleBlur(event: FocusEvent) {
-    // Do not close if the focus is placed on an element in the dropdown
-    const relatedTarget = event.relatedTarget as HTMLElement
-    if (relatedTarget && this.shadowRoot?.contains(relatedTarget)) {
-      return
-    }
-
-    setTimeout(() => {
-      this.dropdownOpen = false
-    }, 100)
   }
 
   private _handleDropdownItemClick(event: Event, path: string) {
