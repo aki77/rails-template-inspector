@@ -3,7 +3,7 @@ export declare class RailsInspectorBreadcrumb extends LitElement {
     static styles: import("lit").CSSResult;
     parentPaths: readonly string[];
     currentPath: string;
-    render(): import("lit-html").TemplateResult<1>;
+    render(): import("lit").TemplateResult<1>;
     private _dispatchOpen;
 }
 declare global {

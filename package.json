@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "vite --open",
     "build": "tsc && vite build",
-    "prepublish": "yarn build"
+    "prepublish": "pnpm build"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.0.1",
@@ -27,5 +27,6 @@
     "typescript": "^5.0.4",
     "unocss": "^0.51.12",
     "vite": "^4.3.5"
-  }
+  },
+  "packageManager": "pnpm@9.15.6+sha512.139cab068fdf0b751268179ac5f909b5be72afb4a75c513d1905d151befc8977b593d3cf8671ed83d4d6637c5c94b98ffbce108125de4a5a27a31233601a99de"
 }
