@@ -82,6 +82,7 @@ export class RailsInspector extends LitElement {
               class="ml-2"
               .parentPaths=${this._parentPaths}
               .currentPath=${this._result?.path}
+              .overlayVisible=${this._overlayVisible}
               @open=${this._handleOpen}
               ?hidden=${this._parentPaths.length === 0}
             ></rails-inspector-dropdown>
