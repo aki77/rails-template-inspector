@@ -1,4 +1,4 @@
-import { html, css, LitElement } from 'lit'
+import { html, css, LitElement, PropertyValues } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 
 const basename = (path: string): string => {
@@ -21,8 +21,19 @@ export class RailsInspectorDropdown extends LitElement {
   @property()
   currentPath: string = ''
 
+  @property({ type: Boolean, attribute: false })
+  overlayVisible: boolean = true
+
   @state()
   private dropdownOpen: boolean = false
+
+  protected willUpdate(changedProperties: PropertyValues) {
+    super.willUpdate(changedProperties)
+
+    if (changedProperties.has('overlayVisible') && !this.overlayVisible) {
+      this.dropdownOpen = false
+    }
+  }
 
   render() {
     const dropdownItems = [
