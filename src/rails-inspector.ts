@@ -5,7 +5,6 @@ import { customElement, property, state } from 'lit/decorators.js'
 import {styleMap} from 'lit/directives/style-map.js'
 import {createRef, Ref, ref} from 'lit/directives/ref.js'
 import { throttle } from 'mabiki'
-import {computePosition, flip, offset} from '@floating-ui/dom'
 import { findParentTargets, findTarget, FindTargetResult, isCombo } from './utils'
 
 @customElement('rails-inspector')
@@ -44,8 +43,6 @@ export class RailsInspector extends LitElement {
   @state()
   private _enabled: boolean = false
 
-  @state()
-  private _tooltipPosition: { left: string, top: string} = { left: '0', top: '0' }
 
   private throttledHandleMove: (event: MouseEvent) => void
 
@@ -67,7 +64,8 @@ export class RailsInspector extends LitElement {
           text-fuchsia-800
           rounded-l
           text-xs
-          absolute
+          sticky
+          top-0
           py-1
           px-2
           flex
@@ -75,7 +73,8 @@ export class RailsInspector extends LitElement {
           gap-3
           font-sans
           pointer-events-auto
-        " style=${styleMap(this._tooltipPosition)} @mousemove=${this._stopPropagation} ${ref(this.tooltipRef)}>
+          w-fit
+        " @mousemove=${this._stopPropagation} ${ref(this.tooltipRef)}>
           <span class="font-bold">${this._result?.path}</span>
           ${this._result ? html`
             <rails-inspector-dropdown
@@ -141,18 +140,6 @@ export class RailsInspector extends LitElement {
     document.body.removeEventListener('click', this._handleClick);
   }
 
-  private async updateTooltipPosition() {
-    if (!(this.overlayRef.value && this.tooltipRef.value)) return
-
-    const {x, y} = await computePosition(this.overlayRef.value, this.tooltipRef.value, {
-      placement: 'top-start',
-      middleware: [flip(), offset(-24)]
-    })
-    this._tooltipPosition = {
-      left: `${x}px`,
-      top: `${y}px`,
-    }
-  }
 
   private _overlayStyle() {
     if (!this._result) return {}
@@ -175,7 +162,6 @@ export class RailsInspector extends LitElement {
     if (result) {
       this._parentPaths = findParentTargets(result.element, result.path).map(({path}) => path)
       this._overlayVisible = true
-      this.updateTooltipPosition()
     } else {
       this._overlayVisible = false
     }

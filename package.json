@@ -17,7 +17,6 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.0.1",
     "lit": "^3.3.0",
     "mabiki": "^1.0.1"
   },
