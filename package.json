@@ -1,6 +1,6 @@
 {
   "name": "@aki77/rails-template-inspector",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "main": "dist/rails-template-inspector.mjs",
   "exports": {
     ".": "./dist/rails-template-inspector.mjs"
@@ -17,16 +17,15 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.0.1",
-    "lit": "^3.3.0",
+    "lit": "^3.3.1",
     "mabiki": "^1.0.1"
   },
   "devDependencies": {
-    "@unocss/preset-icons": "^66.2.3",
-    "@unocss/preset-wind": "^66.2.3",
-    "typescript": "^5.0.4",
-    "unocss": "^66.2.3",
-    "vite": "^6.3.5"
+    "@unocss/preset-icons": "^66.3.3",
+    "@unocss/preset-wind": "^66.3.3",
+    "typescript": "^5.9.2",
+    "unocss": "^66.3.3",
+    "vite": "^7.0.6"
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
