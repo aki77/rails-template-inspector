@@ -13,7 +13,6 @@ export declare class RailsInspector extends LitElement {
     private _parentPaths;
     private _overlayVisible;
     private _enabled;
-    private _tooltipPosition;
     private throttledHandleMove;
     overlayRef: Ref<HTMLDivElement>;
     tooltipRef: Ref<HTMLDivElement>;
@@ -26,7 +25,6 @@ export declare class RailsInspector extends LitElement {
     toggle(): void;
     private _addEventListener;
     private _removeEventListener;
-    private updateTooltipPosition;
     private _overlayStyle;
     private _handleMove;
     private _handleMouseMoveButton;
