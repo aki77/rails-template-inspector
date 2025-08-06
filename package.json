@@ -1,6 +1,6 @@
 {
   "name": "@aki77/rails-template-inspector",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "main": "dist/rails-template-inspector.mjs",
   "exports": {
     ".": "./dist/rails-template-inspector.mjs"
