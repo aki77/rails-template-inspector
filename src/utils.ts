@@ -39,6 +39,8 @@ export const findTarget = (element: HTMLElement, options: FindTargetOptions = {}
   return element.parentElement ? findTarget(element.parentElement) : undefined
 }
 
+const MAX_PARENT_TARGETS = 20
+
 export const findParentTargets = (element: HTMLElement, path: string): readonly FindTargetResult[] => {
   const parents: FindTargetResult[] = []
   let i = 0
@@ -51,7 +53,7 @@ export const findParentTargets = (element: HTMLElement, path: string): readonly 
     parents.push(result)
     el = result.element
     i++
-  } while (i < 3);
+  } while (i < MAX_PARENT_TARGETS);
 
   return parents.reverse()
 }
